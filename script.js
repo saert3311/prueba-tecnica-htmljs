@@ -2,6 +2,29 @@
 
 /* Aqui va su codigo */
 
+const filtrador = () => {
+    const select = document.getElementsByClassName('form-select')[0] // asumimos que es un solo select
+    const tabla = document.querySelector('[data-table]');
+
+    select.addEventListener('change', function (e) {
+        const filterValue = this.value.toLowerCase()
+        for (let i = 1; i < tabla.rows.length; i++) {
+            const row = tabla.rows[i].cells
+            const compareWith = row[1].innerHTML.toLowerCase() // asumimos que la tabla es estatica
+            if (filterValue === compareWith) {
+                tabla.rows[i].classList.remove('d-none') // como tenemos bootstrap usamos su clase para ocultar
+            }else{
+                if (filterValue === 'todos') {
+                    tabla.rows[i].classList.remove('d-none') // nos aseguramos de mostrar todos antes de remover
+                    continue
+                }
+                tabla.rows[i].classList.add('d-none')
+            }
+        }
+    })
+
+}
+
 
 
 
@@ -51,3 +74,4 @@ const buscador = () => {
 };
 
 buscador();
+filtrador();
